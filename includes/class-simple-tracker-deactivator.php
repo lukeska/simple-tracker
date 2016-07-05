@@ -3,7 +3,7 @@
 /**
  * Fired during plugin deactivation
  *
- * @link       http://example.com
+ * @link       http://www.versionebeta.com
  * @since      1.0.0
  *
  * @package    Simple_Tracker

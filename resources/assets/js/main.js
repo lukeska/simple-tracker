@@ -1,5 +1,5 @@
 var Vue = require( 'vue' );
-var MonthsComponent = require( './components/months.vue' );
+var months = require( './components/months.vue' );
 var trackerheader = require( './components/trackerheader.vue' );
 var loader = require( './components/loader.vue' );
 
@@ -16,6 +16,21 @@ Vue.mixin( {
 		},
 		resource: function() {
 			return this.$resource( SimpleTracker.ajaxurl );
+		},
+		trackerswitchyear: function() {
+			return SimpleTracker.trackerswitchyear;
+		},
+		trackerswitchmonth: function() {
+			return SimpleTracker.trackerswitchmonth;
+		},
+		trackerinfo: function() {
+			return SimpleTracker.trackerinfo;
+		},
+		trackerinfourl: function() {
+			return SimpleTracker.trackerinfourl;
+		},
+		pluginurl: function() {
+			return SimpleTracker.pluginurl;
 		}
 	}
 } );
@@ -42,7 +57,7 @@ new Vue({
 	data: store,
 
 	components: {
-		Months: MonthsComponent,
+		months: months,
 		trackerheader: trackerheader,
 		loader: loader
 	},
@@ -118,7 +133,7 @@ new Vue({
 		},
 
 		'day-result-set': function(activity) {
-			console.log(activity)
+
 			this.resource.save( {
 				action: 'update_target_data',
 				target_id: this.targetId,

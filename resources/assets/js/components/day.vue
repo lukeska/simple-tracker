@@ -12,11 +12,11 @@
 				<a href="" class="day-controls-button day-controls-button-bad" @click.prevent="setDayResult(activity.date, 1)">Male</a>
 			</div>
 		</div>
-		<span class="day-result" v-if="!isMonday">
+		<a class="day-result {{ (isSunday) ? 'day-result-week-number' : '' }}" @click.prevent="setDayResult(activity.date)" v-if="isEditable">
 			{{ activity.date.getDate() }}
-		</span>
-		<span class="day-result day-result-week-number" v-else>
-			{{ weekNumber(activity.date) }}
+		</a>
+		<span class="day-result {{ (isSunday) ? 'day-result-week-number' : '' }}" v-else>
+			{{ activity.date.getDate() }}
 		</span>
 	</div>
 </template>
@@ -34,7 +34,21 @@
 		},
 
 		methods: {
-			setDayResult: function(date, result) {
+			setDayResult: function(date, result = null) {
+
+				if(result == null) {
+					switch (this.activity.result) {
+						case 0:
+							result = 10;
+							break;
+						case 1:
+							result = 0;
+							break;
+						case 10:
+							result = 1;
+							break;
+					}
+				}
 
 				if(this.activity.result == result) return;
 
@@ -52,8 +66,8 @@
 		},
 
 		computed: {
-			isMonday: function() {
-				return (this.activity.date.getDay() == 1) ? true : false;
+			isSunday: function() {
+				return (this.activity.date.getDay() == 0) ? true : false;
 			},
 
 			isToday: function() {

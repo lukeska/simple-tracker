@@ -1,0 +1,72 @@
+/*  #Mobile (Portrait)
+================================================== */
+
+/* Note: Design for a width of 320px */
+
+@media only screen and (max-width: 767px) {
+	.st-header {
+		justify-content: flex-end;
+		flex-wrap: wrap;
+	}
+
+	#simple-tracker .st-title {
+		display: block;
+		width: 100%;
+		margin: 0;
+	}
+
+	.month {
+		display: block;
+	    padding: 5px;
+	}
+
+	.month-single .month-name,
+	.month-name {
+		border: none;
+		display: inline-block;
+		line-height: 30px;
+		margin: 0;
+		padding: 0;
+		text-align: center;
+		float: left;
+		width: 114px;
+	}
+
+	.month-days {
+		display: inline;
+	}
+
+	.month-days ul,
+	.month-single .month-days ul {
+		display: inline;
+		margin: 0;
+		padding: 0;
+	}
+
+	.month-days ul li {
+		margin: 0 4px;
+		padding: 0;
+	    display: inline-block;
+    	height: 30px;
+	}
+
+	.day {
+		display: inline-block;
+	}
+
+	a.day-result,
+	.day-result {
+		display: inline-block;
+		width: 30px;
+		height: 30px;
+		text-indent: 0;
+		line-height: 30px;
+	}
+
+	.day-good a.day-result,
+	.day-bad a.day-result {
+		color: #fff;
+	}
+
+	
+}

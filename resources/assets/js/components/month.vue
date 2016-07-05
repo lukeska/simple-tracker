@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="month-container">
 		<div class="month {{ (monthlyView) ? 'month-single' : '' }}" v-show="isVisible">
 			<span class="month-name">{{ name }}</span>
 

@@ -3,7 +3,7 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       http://example.com
+ * @link       http://www.versionebeta.com
  * @since      1.0.0
  *
  * @package    Simple_Tracker
@@ -61,7 +61,7 @@ class Simple_Tracker_Public {
 	 */
 	public function enqueue_styles() {
 
-		wp_register_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/simple-tracker-public.css', array(), $this->version, 'all' );
+		wp_register_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/all.css', array(), $this->version, 'all' );
 	}
 
 	/**
@@ -75,8 +75,13 @@ class Simple_Tracker_Public {
 		wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/simple-tracker-public.js', null, $this->version, true );
 
 		$data = array(
-			'nonce' => wp_create_nonce( 'cron-pixie' ),
-			'ajaxurl' => admin_url( 'admin-ajax.php' )
+			'nonce' => wp_create_nonce( 'simple-tracker' ),
+			'ajaxurl' => admin_url( 'admin-ajax.php' ),
+			'pluginurl' => plugin_dir_url( __FILE__ ),
+			'trackerinfourl' => get_permalink( get_page_by_path( 'tracker' ) ),
+			'trackerswitchyear' => __('Visualizza tutto l\'anno', 'simple-tracker'),
+			'trackerswitchmonth' => __('Visualizza solo il mese corrente', 'simple-tracker'),
+			'trackerinfo' => sprintf(__('Utile questo tracker, vero? <a href="%s" target="_blank">Scopri di più</a>'), get_permalink( get_page_by_path( 'tracker' ) ))
 		);
 
 		wp_localize_script( $this->plugin_name, 'SimpleTracker', $data );
@@ -125,9 +130,9 @@ class Simple_Tracker_Public {
 		echo '<div id="simple-tracker" data-target_id="' . $trackerAtts['id'] . '" data-is_editable="' . $tracker_is_editable . '">';
 		echo '<div v-if="dataLoaded">';
 		echo '<trackerheader :min-year="minYear" :year="year" :color="color" :title="title" :data-loaded="dataLoaded" :content="content" :monthly-view="monthlyView"></trackerheader>';
-		echo '<Months :activities="activities" :year="year" :is-editable="isEditable" :refreshing-data="refreshingData" color="' . $color . '" :monthly-view="monthlyView" ></Months>';
+		echo '<months :activities="activities" :year="year" :is-editable="isEditable" :refreshing-data="refreshingData" color="' . $color . '" :monthly-view="monthlyView" ></months>';
 		echo '</div>';
-		echo '<div class="simple-tracker-loading" v-else><Loader color="' . $color . '"></Loader></div>';
+		echo '<div class="simple-tracker-loading" v-else><loader color="' . $color . '"></loader></div>';
 		echo '</div>';
 		echo '</div>';
 

@@ -3,7 +3,7 @@
 /**
  * Register all actions and filters for the plugin
  *
- * @link       http://example.com
+ * @link       http://www.versionebeta.com
  * @since      1.0.0
  *
  * @package    Simple_Tracker
