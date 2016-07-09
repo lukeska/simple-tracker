@@ -12,7 +12,7 @@
 				<a href="" class="day-controls-button day-controls-button-bad" @click.prevent="setDayResult(activity.date, 1)">Male</a>
 			</div>
 		</div>
-		<a class="day-result {{ (isSunday) ? 'day-result-week-number' : '' }}" @click.prevent="setDayResult(activity.date)" v-if="isEditable">
+		<a class="day-result {{ (isSunday) ? 'day-result-week-number' : '' }}" @click.prevent="setDayResult(activity.date)" v-if="isEditable && !isFuture">
 			{{ activity.date.getDate() }}
 		</a>
 		<span class="day-result {{ (isSunday) ? 'day-result-week-number' : '' }}" v-else>
@@ -22,7 +22,6 @@
 </template>
 
 <script>
-	import constants from '../constants/constants.vue'
 
 	export default {
 		props: ['activity', 'isEditable'],
@@ -87,8 +86,8 @@
 			},
 
 			formatteDateWithDayName: function() {
-				return constants.DAY_NAMES[this.activity.date.getDay()] + ' ' 
-					+ this.activity.date.getDate() + ' ' + constants.MONTH_NAMES[this.activity.date.getMonth()];
+				return this.dayNames[this.activity.date.getDay()] + ' ' 
+					+ this.activity.date.getDate() + ' ' + this.monthNames[this.activity.date.getMonth()];
 			},
 
 			dayClass: function() {

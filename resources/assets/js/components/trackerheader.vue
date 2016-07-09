@@ -31,11 +31,11 @@
 					<div class="st-year-navigator-btn-tooltip">
 						<span>{{{ trackerinfo }}}</span>
 					</div>
-					<a href="{{ trackerinfourl }}" class="st-year-navigator-btn st-year-navigator-btn-info"
+					<!--a href="{{ trackerinfourl }}" class="st-year-navigator-btn st-year-navigator-btn-info"
 						target="_blank" 
 					>
 						<img :src="informationIconUrl" width="20" />
-					</a>
+					</a-->
 				</div>
 			</div>
 		</div>
@@ -59,7 +59,7 @@
 				return this.pluginurl + '/img/calendar.svg';
 			},
 			informationIconUrl: function() {
-				return this.pluginurl + '/img/calendar.svg';
+				return this.pluginurl + '/img/information.svg';
 			},
 			rightarrowIconUrl: function() {
 				return this.pluginurl + '/img/right-arrow.svg';

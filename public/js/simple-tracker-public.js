@@ -11641,13 +11641,6 @@ module.exports = Vue;
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-
-var _constants = require('../constants/constants.vue');
-
-var _constants2 = _interopRequireDefault(_constants);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 exports.default = {
 	props: ['activity', 'isEditable'],
 
@@ -11709,7 +11702,7 @@ exports.default = {
 		},
 
 		formatteDateWithDayName: function formatteDateWithDayName() {
-			return _constants2.default.DAY_NAMES[this.activity.date.getDay()] + ' ' + this.activity.date.getDate() + ' ' + _constants2.default.MONTH_NAMES[this.activity.date.getMonth()];
+			return this.dayNames[this.activity.date.getDay()] + ' ' + this.activity.date.getDate() + ' ' + this.monthNames[this.activity.date.getMonth()];
 		},
 
 		dayClass: function dayClass() {
@@ -11731,7 +11724,7 @@ exports.default = {
 	}
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"day \n\t\t\tday-{{ dayClass }} \n\t\t\t{{ (isFuture) ? 'day-future' : '' }} \n\t\t\t{{ (isToday) ? 'day-today' : '' }}\n\t\t\t{{ (isUpdating) ? 'day-updating' : '' }}\">\n\t<div class=\"day-controls\">\n\t\t<span class=\"day-date\">{{ formatteDateWithDayName }}</span>\n\t\t<div class=\"day-controls-buttons\" v-if=\"!isFuture &amp;&amp; isEditable\">\n\t\t\t<a href=\"\" class=\"day-controls-button-reset\" @click.prevent=\"setDayResult(activity.date, 0)\">Reset</a><br>\n\t\t\t<a href=\"\" class=\"day-controls-button day-controls-button-good\" @click.prevent=\"setDayResult(activity.date, 10)\">Bene</a>\n\t\t\t<a href=\"\" class=\"day-controls-button day-controls-button-bad\" @click.prevent=\"setDayResult(activity.date, 1)\">Male</a>\n\t\t</div>\n\t</div>\n\t<a class=\"day-result {{ (isSunday) ? 'day-result-week-number' : '' }}\" @click.prevent=\"setDayResult(activity.date)\" v-if=\"isEditable\">\n\t\t{{ activity.date.getDate() }}\n\t</a>\n\t<span class=\"day-result {{ (isSunday) ? 'day-result-week-number' : '' }}\" v-else=\"\">\n\t\t{{ activity.date.getDate() }}\n\t</span>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"day \n\t\t\tday-{{ dayClass }} \n\t\t\t{{ (isFuture) ? 'day-future' : '' }} \n\t\t\t{{ (isToday) ? 'day-today' : '' }}\n\t\t\t{{ (isUpdating) ? 'day-updating' : '' }}\">\n\t<div class=\"day-controls\">\n\t\t<span class=\"day-date\">{{ formatteDateWithDayName }}</span>\n\t\t<div class=\"day-controls-buttons\" v-if=\"!isFuture &amp;&amp; isEditable\">\n\t\t\t<a href=\"\" class=\"day-controls-button-reset\" @click.prevent=\"setDayResult(activity.date, 0)\">Reset</a><br>\n\t\t\t<a href=\"\" class=\"day-controls-button day-controls-button-good\" @click.prevent=\"setDayResult(activity.date, 10)\">Bene</a>\n\t\t\t<a href=\"\" class=\"day-controls-button day-controls-button-bad\" @click.prevent=\"setDayResult(activity.date, 1)\">Male</a>\n\t\t</div>\n\t</div>\n\t<a class=\"day-result {{ (isSunday) ? 'day-result-week-number' : '' }}\" @click.prevent=\"setDayResult(activity.date)\" v-if=\"isEditable &amp;&amp; !isFuture\">\n\t\t{{ activity.date.getDate() }}\n\t</a>\n\t<span class=\"day-result {{ (isSunday) ? 'day-result-week-number' : '' }}\" v-else=\"\">\n\t\t{{ activity.date.getDate() }}\n\t</span>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -11742,7 +11735,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-78663bd1", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../constants/constants.vue":10,"vue":4,"vue-hot-reload-api":2}],6:[function(require,module,exports){
+},{"vue":4,"vue-hot-reload-api":2}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -11808,30 +11801,20 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _constants = require('../constants/constants.vue');
 
-var _constants2 = _interopRequireDefault(_constants);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var MonthComponent = require('./month.vue');
+var month = require('./month.vue');
 var loader = require('./loader.vue');
+
 exports.default = {
 	props: ['activities', 'year', 'isEditable', 'color', 'refreshingData', 'monthlyView'],
 
-	data: function data() {
-		return {
-			monthNames: _constants2.default.MONTH_NAMES
-		};
-	},
-
 	components: {
-		MonthComponent: MonthComponent,
+		month: month,
 		loader: loader
 	}
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div class=\"months\">\n\t<div v-if=\"!refreshingData\">\n\t\t<month-component v-for=\"(index, monthlyActivities) in activities\" :name=\"monthNames[index]\" :activities=\"monthlyActivities\" :is-editable=\"isEditable\" :monthly-view=\"monthlyView\" :month-index=\"index\"></month-component>\n\t</div>\n\t<div v-else=\"\">\n\t\t<loader :color=\"color\">\n\t</loader></div>\n</div>\n\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\n<div class=\"months\">\n\t<div v-if=\"!refreshingData\">\n\t\t<month v-for=\"(index, monthlyActivities) in activities\" :name=\"monthNames[index]\" :activities=\"monthlyActivities\" :is-editable=\"isEditable\" :monthly-view=\"monthlyView\" :month-index=\"index\"></month>\n\t</div>\n\t<div v-else=\"\">\n\t\t<loader :color=\"color\">\n\t</loader></div>\n</div>\n\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -11842,7 +11825,151 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-c8e40b64", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../constants/constants.vue":10,"./loader.vue":6,"./month.vue":7,"vue":4,"vue-hot-reload-api":2}],9:[function(require,module,exports){
+},{"./loader.vue":6,"./month.vue":7,"vue":4,"vue-hot-reload-api":2}],9:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+
+var months = require('./months.vue');
+var trackerheader = require('./trackerheader.vue');
+var loader = require('./loader.vue');
+
+exports.default = {
+	props: ['targetId', 'isEditable', 'color'],
+
+	data: function data() {
+		return {
+			activities: [],
+			title: '',
+			content: '',
+			year: new Date().getFullYear(),
+			minYear: 2015,
+			dataLoaded: false,
+			refreshingData: false,
+			monthlyView: true
+		};
+	},
+
+	components: {
+		months: months,
+		trackerheader: trackerheader,
+		loader: loader
+	},
+
+	methods: {
+		refreshData: function refreshData() {
+			this.refreshingData = true;
+
+			this.resource.get({
+				action: 'get_target_data',
+				target_id: this.targetId,
+				year: this.year,
+				nonce: this.nonce
+			}).then(function (response) {
+
+				if (response.data != "false") {
+					var obj = JSON.parse(response.data);
+					this.title = obj.title;
+					this.content = obj.content;
+					this.color = obj.color;
+					this.activities = this.initActivities(this.year, obj.tracking_data);
+
+					this.dataLoaded = true;
+					this.refreshingData = false;
+				}
+			}, function (response) {
+				// Log error.
+				console.log(response);
+				this.refreshingData = false;
+			});
+		},
+
+		initActivities: function initActivities(year) {
+			var trackingData = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+
+			var result = [];
+
+			for (var m = 0; m <= 11; m++) {
+				var days = new Date(year, m + 1, 0).getDate();
+
+				var monthDays = [];
+
+				for (var d = 1; d <= days; d++) {
+					var month = m + 1;
+					month = month < 10 ? '0' + month : '' + month;
+					var day = d < 10 ? '0' + d : d;
+					var rawDate = year + month + day;
+
+					monthDays.push({
+						date: new Date(year, m, d),
+						result: typeof trackingData[rawDate] !== "undefined" ? parseInt(trackingData[rawDate]) : 0
+					});
+				}
+
+				result.push(monthDays);
+			}
+
+			return result;
+		},
+
+		formatDate: function formatDate(date) {
+			var month = date.getMonth() + 1;
+			month = month < 10 ? '0' + month : month;
+			var day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+			return '' + date.getFullYear() + month + day;
+		}
+	},
+
+	events: {
+		'navigate-year': function navigateYear(value) {
+			this.year += value;
+			this.refreshData();
+		},
+
+		'day-result-set': function dayResultSet(activity) {
+
+			this.resource.save({
+				action: 'update_target_data',
+				target_id: this.targetId,
+				activity_date: this.formatDate(activity.date),
+				activity_result: activity.result,
+				nonce: this.nonce
+			}).then(function (response) {
+
+				this.$broadcast('day-result-updated', activity.date);
+			}, function (response) {
+				// Log error.
+				console.log(response);
+			});
+		},
+
+		'switch-view': function switchView(value) {
+			this.monthlyView = value;
+		}
+	},
+
+	ready: function ready() {
+		this.targetId = this.targetId;
+		this.refreshData();
+	}
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"simple-tracker-wrapper\">\n\t<div id=\"simple-tracker\" :target_id=\"target_id\" :is-editable=\"isEditable\">\n\t\t<div v-if=\"dataLoaded\">\n\t\t\t<trackerheader :min-year=\"minYear\" :year=\"year\" :color=\"color\" :title=\"title\" :data-loaded=\"dataLoaded\" :content=\"content\" :monthly-view=\"monthlyView\"></trackerheader>\n\t\t\t<months :activities=\"activities\" :year=\"year\" :is-editable=\"isEditable\" :refreshing-data=\"refreshingData\" :color=\"color\" :monthly-view=\"monthlyView\"></months>\n\t\t</div>\n\t\t<div class=\"simple-tracker-loading\" v-else=\"\"><loader :color=\"color\"></loader></div>\n\t</div>\n</div>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-c1e7278a", module.exports)
+  } else {
+    hotAPI.update("_v-c1e7278a", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"./loader.vue":6,"./months.vue":8,"./trackerheader.vue":10,"vue":4,"vue-hot-reload-api":2}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -11862,7 +11989,7 @@ exports.default = {
 			return this.pluginurl + '/img/calendar.svg';
 		},
 		informationIconUrl: function informationIconUrl() {
-			return this.pluginurl + '/img/calendar.svg';
+			return this.pluginurl + '/img/information.svg';
 		},
 		rightarrowIconUrl: function rightarrowIconUrl() {
 			return this.pluginurl + '/img/right-arrow.svg';
@@ -11883,7 +12010,7 @@ exports.default = {
 	}
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div>\n\t<div class=\"st-header\" v-if=\"dataLoaded\">\n\t\t<h2 class=\"st-title\" :style=\"{ backgroundColor: color }\">{{ title }}</h2>\n\t\t<div class=\"st-year-navigator\">\n\t\t\t<a href=\"\" class=\"st-year-navigator-btn st-year-navigator-btn-prev\" v-show=\"(minYear < year) &amp;&amp; !monthlyView\" @click.prevent=\"addYear(-1)\">\n\t\t\t\t<img :src=\"leftarrowIconUrl\" width=\"20\">\n\t\t\t</a>\n\t\t\t<span class=\"st-year-navigator-current\">{{ year }}</span>\n\t\t\t<a href=\"\" class=\"st-year-navigator-btn st-year-navigator-btn-next\" v-show=\"(year < currentYear) &amp;&amp; !monthlyView\" @click.prevent=\"addYear(1)\">\n\t\t\t\t<img :src=\"rightarrowIconUrl\" width=\"20\">\n\t\t\t</a>\n\t\t\t<div class=\"st-year-navigator-btn-container\">\n\t\t\t\t<div class=\"st-year-navigator-btn-tooltip\">\n\t\t\t\t\t<span v-if=\"monthlyView\">{{ trackerswitchyear }}</span>\n\t\t\t\t\t<span v-else=\"\">{{ trackerswitchmonth }}</span>\n\t\t\t\t</div>\n\t\t\t\t<a href=\"\" class=\"st-year-navigator-btn st-year-navigator-btn-view-switch\" @click.prevent=\"switchView()\">\n\t\t\t\t\t<img :src=\"calendarIconUrl\" width=\"20\">\n\t\t\t\t</a>\n\t\t\t</div>\n\t\t\t<div class=\"st-year-navigator-btn-container\">\n\t\t\t\t<div class=\"st-year-navigator-btn-tooltip\">\n\t\t\t\t\t<span>{{{ trackerinfo }}}</span>\n\t\t\t\t</div>\n\t\t\t\t<a href=\"{{ trackerinfourl }}\" class=\"st-year-navigator-btn st-year-navigator-btn-info\" target=\"_blank\">\n\t\t\t\t\t<img :src=\"informationIconUrl\" width=\"20\">\n\t\t\t\t</a>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\n\t<div class=\"st-content\" v-if=\"dataLoaded &amp;&amp; !monthlyView\">{{ content }}</div>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div>\n\t<div class=\"st-header\" v-if=\"dataLoaded\">\n\t\t<h2 class=\"st-title\" :style=\"{ backgroundColor: color }\">{{ title }}</h2>\n\t\t<div class=\"st-year-navigator\">\n\t\t\t<a href=\"\" class=\"st-year-navigator-btn st-year-navigator-btn-prev\" v-show=\"(minYear < year) &amp;&amp; !monthlyView\" @click.prevent=\"addYear(-1)\">\n\t\t\t\t<img :src=\"leftarrowIconUrl\" width=\"20\">\n\t\t\t</a>\n\t\t\t<span class=\"st-year-navigator-current\">{{ year }}</span>\n\t\t\t<a href=\"\" class=\"st-year-navigator-btn st-year-navigator-btn-next\" v-show=\"(year < currentYear) &amp;&amp; !monthlyView\" @click.prevent=\"addYear(1)\">\n\t\t\t\t<img :src=\"rightarrowIconUrl\" width=\"20\">\n\t\t\t</a>\n\t\t\t<div class=\"st-year-navigator-btn-container\">\n\t\t\t\t<div class=\"st-year-navigator-btn-tooltip\">\n\t\t\t\t\t<span v-if=\"monthlyView\">{{ trackerswitchyear }}</span>\n\t\t\t\t\t<span v-else=\"\">{{ trackerswitchmonth }}</span>\n\t\t\t\t</div>\n\t\t\t\t<a href=\"\" class=\"st-year-navigator-btn st-year-navigator-btn-view-switch\" @click.prevent=\"switchView()\">\n\t\t\t\t\t<img :src=\"calendarIconUrl\" width=\"20\">\n\t\t\t\t</a>\n\t\t\t</div>\n\t\t\t<div class=\"st-year-navigator-btn-container\">\n\t\t\t\t<div class=\"st-year-navigator-btn-tooltip\">\n\t\t\t\t\t<span>{{{ trackerinfo }}}</span>\n\t\t\t\t</div>\n\t\t\t\t<!--a href=\"{{ trackerinfourl }}\" class=\"st-year-navigator-btn st-year-navigator-btn-info\"\n\t\t\t\t\ttarget=\"_blank\" \n\t\t\t\t>\n\t\t\t\t\t<img :src=\"informationIconUrl\" width=\"20\" />\n\t\t\t\t</a-->\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\n\t<div class=\"st-content\" v-if=\"dataLoaded &amp;&amp; !monthlyView\">{{ content }}</div>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -11894,32 +12021,9 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-c9b8698c", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":4,"vue-hot-reload-api":2}],10:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-exports.default = {
-	DAY_NAMES: ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'],
-	MONTH_NAMES: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre']
-};
-if (module.exports.__esModule) module.exports = module.exports.default
-if (module.hot) {(function () {  module.hot.accept()
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), true)
-  if (!hotAPI.compatible) return
-  if (!module.hot.data) {
-    hotAPI.createRecord("_v-d7fad7d2", module.exports)
-  } else {
-    hotAPI.update("_v-d7fad7d2", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
-  }
-})()}
 },{"vue":4,"vue-hot-reload-api":2}],11:[function(require,module,exports){
 var Vue = require( 'vue' );
-var months = require( './components/months.vue' );
-var trackerheader = require( './components/trackerheader.vue' );
-var loader = require( './components/loader.vue' );
+var simpletracker = require( './components/simpletracker.vue' );
 
 // Use and configure vue-resource.
 Vue.use( require( 'vue-resource' ) );
@@ -11949,134 +12053,21 @@ Vue.mixin( {
 		},
 		pluginurl: function() {
 			return SimpleTracker.pluginurl;
+		},
+		monthNames: function() {
+			return SimpleTracker.monthnames;
+		},
+		dayNames: function() {
+			return SimpleTracker.daynames;
 		}
 	}
 } );
 
-
-
-var store = {
-	activities: [],
-	targetId: 0,
-	title: '',
-	content: '',
-	year: new Date().getFullYear(),
-	minYear: 2015,
-	color: '',
-	dataLoaded: false,
-	refreshingData: false,
-	isEditable: false,
-	monthlyView: true
-};
-
 new Vue({
-	el: '#simple-tracker',
-
-	data: store,
+	el: 'body',
 
 	components: {
-		months: months,
-		trackerheader: trackerheader,
-		loader: loader
+		simpletracker: simpletracker
 	},
-
-	methods: {
-		refreshData: function() {
-			this.refreshingData = true;
-
-			this.resource.get( {
-				action: 'get_target_data',
-				target_id: this.targetId,
-				year: this.year,
-				nonce: this.nonce
-			} ).then( function( response ) {
-
-				if(response.data != "false") {
-					obj = JSON.parse(response.data);
-					this.title = obj.title;
-					this.content = obj.content;
-					this.color = obj.color;
-					this.activities = this.initActivities(this.year, obj.tracking_data);
-
-					this.dataLoaded = true;
-					this.refreshingData = false;
-				}
-
-			}, function( response ) {
-				// Log error.
-				console.log( response );
-				this.refreshingData = false;
-			} );
-		},
-
-		formatDate: function(date) {
-			let month = date.getMonth() + 1;
-			month = (month < 10) ? '0' + month : month;
-			let day = (date.getDate() < 10) ? '0' + date.getDate() : date.getDate()
-			return '' + date.getFullYear() + month + day;
-		},
-
-		initActivities: function(year, trackingData = {}) {
-
-			let result = [];
-
-			for (var m = 0; m <= 11; m++) {
-				days = new Date(year, m+1, 0).getDate();
-
-				let monthDays = [];
-
-				for (var d = 1; d <= days; d++) {
-					let month = m + 1;
-						month = (month < 10) ? '0' + month : '' + month;
-					let day = (d < 10) ? '0' + d : d; 
-					let rawDate = year + month + day;
-
-					monthDays.push({
-						date: new Date(year, m, d),
-						result: (typeof trackingData[rawDate] !== "undefined") ? parseInt(trackingData[rawDate]) : 0
-					});
-				}
-
-				result.push(monthDays);
-			}
-			
-			return result;
-		}
-	},
-
-	events: {
-		'navigate-year': function(value) {
-			this.year += value;
-			this.refreshData();
-		},
-
-		'day-result-set': function(activity) {
-
-			this.resource.save( {
-				action: 'update_target_data',
-				target_id: this.targetId,
-				activity_date: this.formatDate(activity.date),
-				activity_result: activity.result,
-				nonce: this.nonce
-			} ).then( function( response ) {
-				
-				this.$broadcast('day-result-updated', activity.date);
-
-			}, function( response ) {
-				// Log error.
-				console.log( response );
-			} );
-		},
-
-		'switch-view': function(value) {
-			this.monthlyView = value;
-		}
-	},
-
-	ready: function() {
-		this.targetId = this.$el.dataset.target_id;
-		this.isEditable = (this.$el.dataset.is_editable == 1) ? true : false;
-		this.refreshData();
-	}
 });
-},{"./components/loader.vue":6,"./components/months.vue":8,"./components/trackerheader.vue":9,"vue":4,"vue-resource":3}]},{},[11]);
+},{"./components/simpletracker.vue":9,"vue":4,"vue-resource":3}]},{},[11]);

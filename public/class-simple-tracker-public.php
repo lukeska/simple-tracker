@@ -81,7 +81,27 @@ class Simple_Tracker_Public {
 			'trackerinfourl' => get_permalink( get_page_by_path( 'tracker' ) ),
 			'trackerswitchyear' => __('Visualizza tutto l\'anno', 'simple-tracker'),
 			'trackerswitchmonth' => __('Visualizza solo il mese corrente', 'simple-tracker'),
-			'trackerinfo' => sprintf(__('Utile questo tracker, vero? <a href="%s" target="_blank">Scopri di più</a>'), get_permalink( get_page_by_path( 'tracker' ) ))
+			'trackerinfo' => sprintf(__('Utile questo tracker, vero? <a href="%s" target="_blank">Scopri di più</a>'), get_permalink( get_page_by_path( 'tracker' ) )),
+			'monthnames' => array(__('Gennaio', 'simple-tracker'), 
+									__('Febbraio', 'simple-tracker'), 
+									__('Marzo', 'simple-tracker'), 
+									__('Aprile', 'simple-tracker'), 
+									__('Maggio', 'simple-tracker'), 
+									__('Giugno', 'simple-tracker'), 
+									__('Luglio', 'simple-tracker'), 
+									__('Agosto', 'simple-tracker'), 
+									__('Settembre', 'simple-tracker'), 
+									__('Ottobre', 'simple-tracker'), 
+									__('Novembre', 'simple-tracker'), 
+									__('Dicembre', 'simple-tracker')),
+			'daynames' => array(__('Domenica', 'simple-tracker'),
+								__('Lunedì', 'simple-tracker'), 
+								__('Martedì', 'simple-tracker'), 
+								__('Mercoledì', 'simple-tracker'), 
+								__('Giovedì', 'simple-tracker'), 
+								__('Venerdì', 'simple-tracker'), 
+								__('Sabato', 'simple-tracker')
+								),
 		);
 
 		wp_localize_script( $this->plugin_name, 'SimpleTracker', $data );
@@ -126,15 +146,7 @@ class Simple_Tracker_Public {
 
 		ob_start();
 		
-		echo '<div class="simple-tracker-wrapper">';
-		echo '<div id="simple-tracker" data-target_id="' . $trackerAtts['id'] . '" data-is_editable="' . $tracker_is_editable . '">';
-		echo '<div v-if="dataLoaded">';
-		echo '<trackerheader :min-year="minYear" :year="year" :color="color" :title="title" :data-loaded="dataLoaded" :content="content" :monthly-view="monthlyView"></trackerheader>';
-		echo '<months :activities="activities" :year="year" :is-editable="isEditable" :refreshing-data="refreshingData" color="' . $color . '" :monthly-view="monthlyView" ></months>';
-		echo '</div>';
-		echo '<div class="simple-tracker-loading" v-else><loader color="' . $color . '"></loader></div>';
-		echo '</div>';
-		echo '</div>';
+		echo '<simpletracker target-id="' . $trackerAtts['id'] . '" is-editable="' . $tracker_is_editable . '" color="' . $color . '"></simpletracker>';
 
 		$output = ob_get_contents();
 		ob_end_clean();
