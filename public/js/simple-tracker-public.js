@@ -11646,7 +11646,8 @@ exports.default = {
 
 	data: function data() {
 		return {
-			isUpdating: false
+			isUpdating: false,
+			isDayEditable: this.isEditable == "1" ? true : false
 		};
 	},
 
@@ -11724,7 +11725,7 @@ exports.default = {
 	}
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"day \n\t\t\tday-{{ dayClass }} \n\t\t\t{{ (isFuture) ? 'day-future' : '' }} \n\t\t\t{{ (isToday) ? 'day-today' : '' }}\n\t\t\t{{ (isUpdating) ? 'day-updating' : '' }}\">\n\t<div class=\"day-controls\">\n\t\t<span class=\"day-date\">{{ formatteDateWithDayName }}</span>\n\t\t<div class=\"day-controls-buttons\" v-if=\"!isFuture &amp;&amp; isEditable\">\n\t\t\t<a href=\"\" class=\"day-controls-button-reset\" @click.prevent=\"setDayResult(activity.date, 0)\">Reset</a><br>\n\t\t\t<a href=\"\" class=\"day-controls-button day-controls-button-good\" @click.prevent=\"setDayResult(activity.date, 10)\">Bene</a>\n\t\t\t<a href=\"\" class=\"day-controls-button day-controls-button-bad\" @click.prevent=\"setDayResult(activity.date, 1)\">Male</a>\n\t\t</div>\n\t</div>\n\t<a class=\"day-result {{ (isSunday) ? 'day-result-week-number' : '' }}\" @click.prevent=\"setDayResult(activity.date)\" v-if=\"isEditable &amp;&amp; !isFuture\">\n\t\t{{ activity.date.getDate() }}\n\t</a>\n\t<span class=\"day-result {{ (isSunday) ? 'day-result-week-number' : '' }}\" v-else=\"\">\n\t\t{{ activity.date.getDate() }}\n\t</span>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"day \n\t\t\tday-{{ dayClass }} \n\t\t\t{{ (isFuture) ? 'day-future' : '' }} \n\t\t\t{{ (isToday) ? 'day-today' : '' }}\n\t\t\t{{ (isUpdating) ? 'day-updating' : '' }}\">\n\t<div class=\"day-controls\">\n\t\t<span class=\"day-date\">{{ formatteDateWithDayName }}</span>\n\t\t<div class=\"day-controls-buttons\" v-if=\"!isFuture &amp;&amp; isDayEditable\">\n\t\t\t<a href=\"\" class=\"day-controls-button-reset\" @click.prevent=\"setDayResult(activity.date, 0)\">Reset</a><br>\n\t\t\t<a href=\"\" class=\"day-controls-button day-controls-button-good\" @click.prevent=\"setDayResult(activity.date, 10)\">Bene</a>\n\t\t\t<a href=\"\" class=\"day-controls-button day-controls-button-bad\" @click.prevent=\"setDayResult(activity.date, 1)\">Male</a>\n\t\t</div>\n\t</div>\n\t<a class=\"day-result {{ (isSunday) ? 'day-result-week-number' : '' }}\" @click.prevent=\"setDayResult(activity.date)\" v-if=\"isDayEditable &amp;&amp; !isFuture\">\n\t\t{{ activity.date.getDate() }}\n\t</a>\n\t<span class=\"day-result {{ (isSunday) ? 'day-result-week-number' : '' }}\" v-else=\"\">\n\t\t{{ activity.date.getDate() }}\n\t</span>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)

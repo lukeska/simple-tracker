@@ -64,7 +64,9 @@
 	}
 
 	.day-good a.day-result,
-	.day-bad a.day-result {
+	.day-bad a.day-result,
+	.day-good span.day-result,
+	.day-bad span.day-result {
 		color: #fff;
 	}
 

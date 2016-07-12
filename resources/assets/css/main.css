@@ -237,7 +237,8 @@ a.day-result,
 	transition: all 300ms linear;
 }
 
-.day-result-week-number {
+a.day-result-week-number,
+span.day-result-week-number {
 	border: 1px solid #ccc;
 	background:#ccc;
 }

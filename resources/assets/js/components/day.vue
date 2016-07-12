@@ -6,13 +6,13 @@
 				{{ (isUpdating) ? 'day-updating' : '' }}">
 		<div class="day-controls">
 			<span class="day-date">{{ formatteDateWithDayName }}</span>
-			<div class="day-controls-buttons" v-if="!isFuture && isEditable">
+			<div class="day-controls-buttons" v-if="!isFuture && isDayEditable">
 				<a href="" class="day-controls-button-reset" @click.prevent="setDayResult(activity.date, 0)">Reset</a><br />
 				<a href="" class="day-controls-button day-controls-button-good" @click.prevent="setDayResult(activity.date, 10)">Bene</a>
 				<a href="" class="day-controls-button day-controls-button-bad" @click.prevent="setDayResult(activity.date, 1)">Male</a>
 			</div>
 		</div>
-		<a class="day-result {{ (isSunday) ? 'day-result-week-number' : '' }}" @click.prevent="setDayResult(activity.date)" v-if="isEditable && !isFuture">
+		<a class="day-result {{ (isSunday) ? 'day-result-week-number' : '' }}" @click.prevent="setDayResult(activity.date)" v-if="isDayEditable && !isFuture">
 			{{ activity.date.getDate() }}
 		</a>
 		<span class="day-result {{ (isSunday) ? 'day-result-week-number' : '' }}" v-else>
@@ -28,7 +28,8 @@
 
 		data: function() {
 			return {
-				isUpdating: false
+				isUpdating: false,
+				isDayEditable: (this.isEditable == "1") ? true : false 
 			}
 		},
 

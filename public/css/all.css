@@ -237,7 +237,8 @@ a.day-result,
 	transition: all 300ms linear;
 }
 
-.day-result-week-number {
+a.day-result-week-number,
+span.day-result-week-number {
 	border: 1px solid #ccc;
 	background:#ccc;
 }
@@ -504,7 +505,9 @@ a.day-result,
 	}
 
 	.day-good a.day-result,
-	.day-bad a.day-result {
+	.day-bad a.day-result,
+	.day-good span.day-result,
+	.day-bad span.day-result {
 		color: #fff;
 	}
 
